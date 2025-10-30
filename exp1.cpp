@@ -3,51 +3,39 @@ using namespace std;
 
 int main()
 {
-    int n;
-    cout << "Enter number of days: ";
+    int n, k;
+    cout << "Enter number of people: ";
     cin >> n;
 
-    int prices[100];
-    cout << "Enter prices of stock for each day: ";
+    int tickets[100];
+    cout << "Enter number of tickets each person wants: ";
     for (int i = 0; i < n; i++)
     {
-        cin >> prices[i];
+        cin >> tickets[i];
     }
 
-    int minPrice = prices[0];
-    int buyIndex = 0;
-    int sellIndex = 0;
-    int maxProfit = 0;
+    cout << "Enter position of person (k): ";
+    cin >> k;
 
-    for (int i = 1; i < n; i++)
+    int time = 0;
+
+    while (true)
     {
-        int profit = prices[i] - minPrice;
-
-        if (profit > maxProfit)
+        for (int i = 0; i < n; i++)
         {
-            maxProfit = profit;
-            sellIndex = i;
+            if (tickets[i] > 0)
+            {
+                tickets[i]--;
+                time++;
+
+
+                if (i == k && tickets[i] == 0)
+                {
+                    cout << "Total time: " << time << " seconds" << endl;
+                    return 0;
+                }
+            }
         }
-
-        if (prices[i] < minPrice)
-        {
-            minPrice = prices[i];
-            buyIndex = i;
-        }
     }
-
-    cout << "\n----- Result -----\n";
-    cout << "Maximum Profit: " << maxProfit << endl;
-
-    if (maxProfit > 0)
-    {
-        cout << "Buy on Day Index: " << buyIndex << " (Price = " << prices[buyIndex] << ")" << endl;
-        cout << "Sell on Day Index: " << sellIndex << " (Price = " << prices[sellIndex] << ")" << endl;
-    }
-    else
-    {
-        cout << "No profit can be made (prices only decrease)." << endl;
-    }
-
-    return 0;
 }
+
